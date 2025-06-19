@@ -51,7 +51,7 @@
         operators.Add("==")
     End Sub
 
-    'test code in compiler text'
+    'default code pag ni-run'
     Private Function GetEnglishSampleCode() As String
         Return "comment Welcome to BBC COMPILER!" & vbCrLf &
                "start programming" & vbCrLf &

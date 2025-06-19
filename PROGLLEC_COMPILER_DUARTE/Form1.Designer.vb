@@ -390,7 +390,7 @@ Partial Class Form1
         ' 
         main_code_editor.BackColor = Color.FromArgb(CByte(81), CByte(91), CByte(101))
         main_code_editor.Font = New Font("Century Schoolbook", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        main_code_editor.Location = New Point(38, 4)
+        main_code_editor.Location = New Point(60, 6)
         main_code_editor.Name = "main_code_editor"
         main_code_editor.Size = New Size(709, 527)
         main_code_editor.TabIndex = 0
