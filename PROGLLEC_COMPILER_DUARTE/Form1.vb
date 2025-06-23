@@ -1,4 +1,5 @@
-﻿Public Class Form1
+﻿'Test comment nigga
+Public Class Form1
     'Dictionary for file management
     Private fileContents As New Dictionary(Of String, String)
     Private currentFile As String = ""
