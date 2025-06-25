@@ -42,8 +42,6 @@ Partial Class Form1
         codeSample_1 = New Button()
         codeSample_2 = New Button()
         codeSample_3 = New Button()
-        codeSample_4 = New Button()
-        codeSample_5 = New Button()
         elipsis_button = New Button()
         fileExplorer_txt = New TextBox()
         code_panel = New Panel()
@@ -259,8 +257,6 @@ Partial Class Form1
         sideCode_panel.Controls.Add(codeSample_1)
         sideCode_panel.Controls.Add(codeSample_2)
         sideCode_panel.Controls.Add(codeSample_3)
-        sideCode_panel.Controls.Add(codeSample_4)
-        sideCode_panel.Controls.Add(codeSample_5)
         sideCode_panel.Location = New Point(6, 41)
         sideCode_panel.Name = "sideCode_panel"
         sideCode_panel.Size = New Size(181, 533)
@@ -307,34 +303,6 @@ Partial Class Form1
         codeSample_3.Text = "RPS.cpp"
         codeSample_3.TextAlign = ContentAlignment.MiddleLeft
         codeSample_3.UseVisualStyleBackColor = False
-        ' 
-        ' codeSample_4
-        ' 
-        codeSample_4.BackColor = Color.FromArgb(CByte(81), CByte(91), CByte(101))
-        codeSample_4.FlatStyle = FlatStyle.Popup
-        codeSample_4.Font = New Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        codeSample_4.ForeColor = Color.FromArgb(CByte(226), CByte(82), CByte(114))
-        codeSample_4.Location = New Point(3, 99)
-        codeSample_4.Name = "codeSample_4"
-        codeSample_4.Size = New Size(170, 26)
-        codeSample_4.TabIndex = 3
-        codeSample_4.Text = "loop.cpp"
-        codeSample_4.TextAlign = ContentAlignment.MiddleLeft
-        codeSample_4.UseVisualStyleBackColor = False
-        ' 
-        ' codeSample_5
-        ' 
-        codeSample_5.BackColor = Color.FromArgb(CByte(81), CByte(91), CByte(101))
-        codeSample_5.FlatStyle = FlatStyle.Popup
-        codeSample_5.Font = New Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        codeSample_5.ForeColor = Color.FromArgb(CByte(226), CByte(82), CByte(114))
-        codeSample_5.Location = New Point(3, 131)
-        codeSample_5.Name = "codeSample_5"
-        codeSample_5.Size = New Size(170, 26)
-        codeSample_5.TabIndex = 4
-        codeSample_5.Text = "function.cpp"
-        codeSample_5.TextAlign = ContentAlignment.MiddleLeft
-        codeSample_5.UseVisualStyleBackColor = False
         ' 
         ' elipsis_button
         ' 
@@ -444,8 +412,6 @@ Partial Class Form1
     Friend WithEvents codeSample_1 As Button
     Friend WithEvents codeSample_2 As Button
     Friend WithEvents codeSample_3 As Button
-    Friend WithEvents codeSample_4 As Button
-    Friend WithEvents codeSample_5 As Button
     Friend WithEvents main_code_editor As RichTextBox
     Friend WithEvents line_number_box As RichTextBox
 

@@ -22,6 +22,8 @@ Public Class Form1
         End If
     End Sub
 
+
+    'paki-palitan yung mga keywords natin ng medyo unique
     Private Sub InitializeKeywords()
         keywords.Add("set")     'var assignment
         keywords.Add("print")   'output
@@ -41,6 +43,7 @@ Public Class Form1
         keywords.Add("output")  'alternative print
     End Sub
 
+
     Private Sub InitializeOperators()
         operators.Add("=")
         operators.Add("+")
@@ -51,6 +54,7 @@ Public Class Form1
         operators.Add("<")
         operators.Add("==")
     End Sub
+
 
     'default code pag ni-run'
     Private Function GetEnglishSampleCode() As String
@@ -78,14 +82,17 @@ Public Class Form1
                "print ""HHHHHH!"""
     End Function
 
+
     'button logic'
     Private Sub file_button_Click(sender As Object, e As EventArgs) Handles file_button.Click
         MessageBox.Show("File menu - Manage your files here!", "File Menu")
     End Sub
 
+
     Private Sub edit_button_Click(sender As Object, e As EventArgs) Handles edit_button.Click
         MessageBox.Show("Edit menu - Edit your code here!", "Edit Menu")
     End Sub
+
 
     Private Sub terminal_button_Click(sender As Object, e As EventArgs) Handles terminal_button.Click
         Dim terminalOutput As New System.Text.StringBuilder()
@@ -99,6 +106,7 @@ Public Class Form1
         ShowOutputWindow(terminalOutput.ToString(), "Terminal")
     End Sub
 
+
     Private Sub settings_button_Click(sender As Object, e As EventArgs) Handles settings_button.Click
         Dim settingsInfo As String = "PROGRAMMING LANGUAGE SETTINGS" & vbCrLf & vbCrLf &
                                    "Keywords (Commands):" & vbCrLf
@@ -109,6 +117,7 @@ Public Class Form1
 
         MessageBox.Show(settingsInfo, "Language Settings")
     End Sub
+
 
     Private Sub run_button_Click(sender As Object, e As EventArgs) Handles run_button.Click
         Try
@@ -124,6 +133,7 @@ Public Class Form1
             MessageBox.Show("Error: " & ex.Message, "Compilation Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
+
 
     Private Sub debugg_button_Click(sender As Object, e As EventArgs) Handles debugg_button.Click
         Try
@@ -152,6 +162,7 @@ Public Class Form1
         End Try
     End Sub
 
+
     Public Class Token
         Public Property Type As String
         Public Property Value As String
@@ -163,6 +174,7 @@ Public Class Form1
             LineNumber = lineNum
         End Sub
     End Class
+
 
     Private Function TokenizeCode(sourceCode As String) As ArrayList
         Dim tokens As New ArrayList()
@@ -191,6 +203,7 @@ Public Class Form1
 
         Return tokens
     End Function
+
 
     Private Function ParseLine(line As String) As ArrayList
         Dim words As New ArrayList()
@@ -248,6 +261,7 @@ Public Class Form1
         Return words
     End Function
 
+
     Private Function IsOperatorChar(c As Char) As Boolean
         Dim operatorChars() As Char = {"+"c, "-"c, "*"c, "/"c, "="c, ">"c, "<"c}
 
@@ -259,6 +273,7 @@ Public Class Form1
 
         Return False
     End Function
+
 
     Private Function ClassifyToken(word As String, lineNum As Integer) As Token
         For Each keyword As String In keywords
@@ -285,6 +300,7 @@ Public Class Form1
         Return New Token("IDENTIFIER", word, lineNum)
     End Function
 
+
     Private Sub CompileAndRunCode(sourceCode As String)
         Dim tokens As ArrayList = TokenizeCode(sourceCode)
         Dim i As Integer = 0
@@ -293,6 +309,7 @@ Public Class Form1
             i = ProcessStatement(tokens, i)
         End While
     End Sub
+
 
     Private Function ProcessStatement(tokens As ArrayList, startIndex As Integer) As Integer
         Dim i As Integer = startIndex
@@ -320,6 +337,7 @@ Public Class Form1
 
         Return i + 1
     End Function
+
 
     Private Function ProcessSetStatement(tokens As ArrayList, startIndex As Integer) As Integer
         Dim i As Integer = startIndex + 1
@@ -357,6 +375,7 @@ Public Class Form1
         Return SkipToEndOfLine(tokens, i)
     End Function
 
+
     Private Function ProcessPrintStatement(tokens As ArrayList, startIndex As Integer) As Integer
         Dim i As Integer = startIndex + 1
 
@@ -365,6 +384,7 @@ Public Class Form1
 
         Return SkipToEndOfLine(tokens, i)
     End Function
+
 
     Private Function ProcessIfStatement(tokens As ArrayList, startIndex As Integer) As Integer
         Dim i As Integer = startIndex + 1
@@ -444,6 +464,7 @@ Public Class Form1
         Return i
     End Function
 
+
     Private Function EvaluateExpression(tokens As ArrayList, ByRef index As Integer) As Object
         Dim result As Object = Nothing
         Dim currentOperator As String = ""
@@ -500,6 +521,7 @@ Public Class Form1
         Return If(result, "")
     End Function
 
+
     Private Function GetVariableValue(varName As String) As Object
         For i As Integer = 0 To variableNames.Count - 1
             If variableNames(i).ToString() = varName Then
@@ -509,6 +531,7 @@ Public Class Form1
 
         Throw New Exception($"Error: Variable '{varName}' not found!")
     End Function
+
 
     Private Function PerformMathOperation(left As Object, op As String, right As Object) As Object
         Dim leftNum As Double = Convert.ToDouble(left)
@@ -531,6 +554,7 @@ Public Class Form1
         End Select
     End Function
 
+
     Private Function EvaluateCondition(left As Object, op As String, right As Object) As Boolean
         Select Case op
             Case ">"
@@ -544,6 +568,7 @@ Public Class Form1
         End Select
     End Function
 
+
     Private Function SkipToEndOfLine(tokens As ArrayList, startIndex As Integer) As Integer
         Dim i As Integer = startIndex
         While i < tokens.Count AndAlso CType(tokens(i), Token).Type <> "EOL"
@@ -551,6 +576,7 @@ Public Class Form1
         End While
         Return i + 1
     End Function
+
 
     Private Sub ShowOutputWindow(content As String, title As String)
         Dim outputForm As New Form()
@@ -573,35 +599,29 @@ Public Class Form1
     End Sub
 
 
-
+    'Code sample is yung mga files na nasa gilid (may functionality na mag-load ng code sa editor, need lang i-sure na gagana ng maayos)
     Private Sub codeSample_1_Click(sender As Object, e As EventArgs) Handles codeSample_1.Click
         SaveCurrentFile()
         LoadCode("codeSample_1")
     End Sub
+
 
     Private Sub codeSample_2_Click(sender As Object, e As EventArgs) Handles codeSample_2.Click
         SaveCurrentFile()
         LoadCode("codeSample_2")
     End Sub
 
+
     Private Sub codeSample_3_Click(sender As Object, e As EventArgs) Handles codeSample_3.Click
         SaveCurrentFile()
         LoadCode("codeSample_3")
     End Sub
 
-    Private Sub codeSample_4_Click(sender As Object, e As EventArgs) Handles codeSample_4.Click
-        SaveCurrentFile()
-        LoadCode("codeSample_4")
-    End Sub
-
-    Private Sub codeSample_5_Click(sender As Object, e As EventArgs) Handles codeSample_5.Click
-        SaveCurrentFile()
-        LoadCode("codeSample_5")
-    End Sub
 
     Private Sub main_code_editor_TextChanged(sender As Object, e As EventArgs) Handles main_code_editor.TextChanged
         UpdateLineNumbers()
     End Sub
+
 
     Private Sub SaveCurrentFile()
         If currentFile <> "" Then
@@ -645,6 +665,7 @@ Public Class Form1
         UpdateLineNumbers()
     End Sub
 
+
     Private Sub UpdateLineNumbers()
         line_number_box.SuspendLayout()
         line_number_box.Text = ""
@@ -656,5 +677,6 @@ Public Class Form1
 
         line_number_box.ResumeLayout()
     End Sub
+
 
 End Class
