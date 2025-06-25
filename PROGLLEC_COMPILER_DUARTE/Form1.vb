@@ -22,15 +22,19 @@ Public Class Form1
         End If
     End Sub
 
-
+    'keywords initialization
     'paki-palitan yung mga keywords natin ng medyo unique
     Private Sub InitializeKeywords()
         keywords.Add("set")     'var assignment
         keywords.Add("print")   'output
         keywords.Add("if")      'conditional statement
         keywords.Add("then")    'if block
+        keywords.Add("elseif")  'else-if block
         keywords.Add("else")    'else block
         keywords.Add("end")     'end block
+        keywords.Add("for")     'for loop
+        keywords.Add("to")      'for loop range
+        keywords.Add("next")    'for loop end
         keywords.Add("var")     'variable prefix
         keywords.Add("start")   'program start
         keywords.Add("comment") 'comment prefix type nyo "comment" instead na // 
@@ -43,7 +47,7 @@ Public Class Form1
         keywords.Add("output")  'alternative print
     End Sub
 
-
+    'operators initialization
     Private Sub InitializeOperators()
         operators.Add("=")
         operators.Add("+")
@@ -88,12 +92,12 @@ Public Class Form1
         MessageBox.Show("File menu - Manage your files here!", "File Menu")
     End Sub
 
-
+    'edit button
     Private Sub edit_button_Click(sender As Object, e As EventArgs) Handles edit_button.Click
         MessageBox.Show("Edit menu - Edit your code here!", "Edit Menu")
     End Sub
 
-
+    'Terminal button - available variables and their values
     Private Sub terminal_button_Click(sender As Object, e As EventArgs) Handles terminal_button.Click
         Dim terminalOutput As New System.Text.StringBuilder()
         terminalOutput.AppendLine("=== TERMINAL ===")
@@ -106,7 +110,7 @@ Public Class Form1
         ShowOutputWindow(terminalOutput.ToString(), "Terminal")
     End Sub
 
-
+    'settings button - shows programming language
     Private Sub settings_button_Click(sender As Object, e As EventArgs) Handles settings_button.Click
         Dim settingsInfo As String = "PROGRAMMING LANGUAGE SETTINGS" & vbCrLf & vbCrLf &
                                    "Keywords (Commands):" & vbCrLf
@@ -118,7 +122,7 @@ Public Class Form1
         MessageBox.Show(settingsInfo, "Language Settings")
     End Sub
 
-
+    'run button - compiles and runs the code
     Private Sub run_button_Click(sender As Object, e As EventArgs) Handles run_button.Click
         Try
             output.Clear()
@@ -134,7 +138,7 @@ Public Class Form1
         End Try
     End Sub
 
-
+    'debug button - kung anong kulang and mali sa syntax ng code
     Private Sub debugg_button_Click(sender As Object, e As EventArgs) Handles debugg_button.Click
         Try
             Dim sourceCode As String = main_code_editor.Text
@@ -162,7 +166,7 @@ Public Class Form1
         End Try
     End Sub
 
-
+    'token
     Public Class Token
         Public Property Type As String
         Public Property Value As String
@@ -176,10 +180,20 @@ Public Class Form1
     End Class
 
 
+    'called when we run the code
+    ' each line sa compiler is trimmed and disregarded yung spaces
+    'if my line na walang laman, didisregard sya or if may nakalagay na "comment" (ito yung keyword natin for comment sa code)
+    'yung line na may laman na code, mapupunta sa ParseLine wherein ParseLine is inchaarge sa pag analyze ng content ng specific line of code
+    'after magawa ni ParseLine yung analyzation, proceed sa ClassifyToken. 
+    'ClassifyToken basically each word ay chineckeck na galing sa ParseLine, chinecheck neto if may nagmatch ba sa keyword natin, if wala DISREGARD. 
+    'if may nag match, gagawin nya yung keyword na yon. 
     Private Function TokenizeCode(sourceCode As String) As ArrayList
         Dim tokens As New ArrayList()
-        Dim lines() As String = sourceCode.Split({vbCrLf, vbLf}, StringSplitOptions.None)
+
+        Dim lines() As String = sourceCode.Split({vbCrLf, vbLf}, StringSplitOptions.None) 'each code line is split into 1, so ito yung reading per lines ni sir
+
         Dim lineNumber As Integer = 1
+
 
         For Each line As String In lines
             Dim trimmedLine As String = line.Trim()
@@ -205,6 +219,8 @@ Public Class Form1
     End Function
 
 
+    'Each lines are passed here, each lines/words sa line of code are grouped, then nirereturn nya as ArrayList. 
+    ' yung mga nireturn nya, mapupunta sa ClassifyToken. 
     Private Function ParseLine(line As String) As ArrayList
         Dim words As New ArrayList()
         Dim currentWord As New System.Text.StringBuilder()
@@ -275,6 +291,7 @@ Public Class Form1
     End Function
 
 
+    'if may nagmatch na keyword sa ginawa natin (print, set or + -) na galing sa ParseLine, gagawin nya yon. 
     Private Function ClassifyToken(word As String, lineNum As Integer) As Token
         For Each keyword As String In keywords
             If word.ToLower() = keyword.ToLower() Then
@@ -300,7 +317,7 @@ Public Class Form1
         Return New Token("IDENTIFIER", word, lineNum)
     End Function
 
-
+    'dito na cocompile and tokenize yung code per line na galing sa ParseLine
     Private Sub CompileAndRunCode(sourceCode As String)
         Dim tokens As ArrayList = TokenizeCode(sourceCode)
         Dim i As Integer = 0
@@ -311,6 +328,8 @@ Public Class Form1
     End Sub
 
 
+    'Skipping empty lines
+    ' chinecheck if yung keyword na detected is token ba o hindi
     Private Function ProcessStatement(tokens As ArrayList, startIndex As Integer) As Integer
         Dim i As Integer = startIndex
 
@@ -330,6 +349,14 @@ Public Class Form1
                     Return ProcessPrintStatement(tokens, i)
                 Case "if"
                     Return ProcessIfStatement(tokens, i)
+                Case "elseif"
+                    Return i + 1
+                Case "else"
+                    Return i + 1
+                Case "for"
+                    Return ProcessForStatement(tokens, i)
+                Case "next"
+                    Return i + 1 ' handled in ProcessForStatement
                 Case "start"
                     Return SkipToEndOfLine(tokens, i)
             End Select
@@ -338,7 +365,7 @@ Public Class Form1
         Return i + 1
     End Function
 
-
+    'Syntax checker
     Private Function ProcessSetStatement(tokens As ArrayList, startIndex As Integer) As Integer
         Dim i As Integer = startIndex + 1
 
@@ -376,6 +403,7 @@ Public Class Form1
     End Function
 
 
+    'Print 
     Private Function ProcessPrintStatement(tokens As ArrayList, startIndex As Integer) As Integer
         Dim i As Integer = startIndex + 1
 
@@ -386,9 +414,11 @@ Public Class Form1
     End Function
 
 
+    'Conditional statement checker
     Private Function ProcessIfStatement(tokens As ArrayList, startIndex As Integer) As Integer
         Dim i As Integer = startIndex + 1
 
+        ' Evaluate condition
         Dim leftValue As Object = Nothing
         If i < tokens.Count Then
             Dim token As Token = CType(tokens(i), Token)
@@ -430,41 +460,53 @@ Public Class Form1
         Dim condition As Boolean = EvaluateCondition(leftValue, comparisonOp, rightValue)
 
         If condition Then
+            ' Execute statements until elseif/else/end
             While i < tokens.Count
                 Dim token As Token = CType(tokens(i), Token)
-                If token.Type = "KEYWORD" AndAlso (token.Value = "else" OrElse token.Value = "end") Then
+                If token.Type = "KEYWORD" AndAlso (token.Value = "elseif" OrElse token.Value = "else" OrElse token.Value = "end") Then
                     Exit While
                 End If
                 i = ProcessStatement(tokens, i)
             End While
 
-            If i < tokens.Count AndAlso CType(tokens(i), Token).Value = "else" Then
-                i += 1
-                While i < tokens.Count AndAlso CType(tokens(i), Token).Value <> "end"
+            ' Skip the rest of the if-elseif-else chain
+            While i < tokens.Count
+                Dim token As Token = CType(tokens(i), Token)
+                If token.Type = "KEYWORD" AndAlso token.Value = "end" Then
                     i += 1
-                End While
-            End If
-        Else
-            While i < tokens.Count AndAlso CType(tokens(i), Token).Value <> "else" AndAlso CType(tokens(i), Token).Value <> "end"
+                    Exit While
+                End If
                 i += 1
             End While
-
-            If i < tokens.Count AndAlso CType(tokens(i), Token).Value = "else" Then
+        Else
+            ' Check for elseif/else
+            While i < tokens.Count
+                Dim token As Token = CType(tokens(i), Token)
+                If token.Type = "KEYWORD" AndAlso token.Value = "elseif" Then
+                    Return ProcessIfStatement(tokens, i)
+                ElseIf token.Type = "KEYWORD" AndAlso token.Value = "else" Then
+                    i += 1
+                    While i < tokens.Count AndAlso CType(tokens(i), Token).Value <> "end"
+                        i = ProcessStatement(tokens, i)
+                    End While
+                    If i < tokens.Count AndAlso CType(tokens(i), Token).Value = "end" Then
+                        i += 1
+                    End If
+                    Exit While
+                ElseIf token.Type = "KEYWORD" AndAlso token.Value = "end" Then
+                    i += 1
+                    Exit While
+                End If
                 i += 1
-                While i < tokens.Count AndAlso CType(tokens(i), Token).Value <> "end"
-                    i = ProcessStatement(tokens, i)
-                End While
-            End If
-        End If
-
-        If i < tokens.Count AndAlso CType(tokens(i), Token).Value = "end" Then
-            i += 1
+            End While
         End If
 
         Return i
     End Function
 
 
+    'Expression checker
+    'handle nya yung numbers, identifiers, strings, variables and operators na ginawa natin
     Private Function EvaluateExpression(tokens As ArrayList, ByRef index As Integer) As Object
         Dim result As Object = Nothing
         Dim currentOperator As String = ""
@@ -522,6 +564,10 @@ Public Class Form1
     End Function
 
 
+
+
+    '-------------------------------------------------------------------'HELPER FUNCTIONS ---------------------------------------------------------------------------------'
+    'Getting variable value
     Private Function GetVariableValue(varName As String) As Object
         For i As Integer = 0 To variableNames.Count - 1
             If variableNames(i).ToString() = varName Then
@@ -532,7 +578,7 @@ Public Class Form1
         Throw New Exception($"Error: Variable '{varName}' not found!")
     End Function
 
-
+    'arithmetic shit
     Private Function PerformMathOperation(left As Object, op As String, right As Object) As Object
         Dim leftNum As Double = Convert.ToDouble(left)
         Dim rightNum As Double = Convert.ToDouble(right)
@@ -554,7 +600,7 @@ Public Class Form1
         End Select
     End Function
 
-
+    'Conditional statement shit
     Private Function EvaluateCondition(left As Object, op As String, right As Object) As Boolean
         Select Case op
             Case ">"
@@ -578,6 +624,7 @@ Public Class Form1
     End Function
 
 
+    'output window (DAPAT SA GAWA NATIN NA TERMINAL NA TO)
     Private Sub ShowOutputWindow(content As String, title As String)
         Dim outputForm As New Form()
         outputForm.Text = title
@@ -634,6 +681,7 @@ Public Class Form1
     End Sub
 
 
+
     Private Sub LoadCode(fileName As String)
         currentFile = fileName
 
@@ -666,6 +714,7 @@ Public Class Form1
     End Sub
 
 
+
     Private Sub UpdateLineNumbers()
         line_number_box.SuspendLayout()
         line_number_box.Text = ""
@@ -678,5 +727,116 @@ Public Class Form1
         line_number_box.ResumeLayout()
     End Sub
 
+
+
+    'Process for-loop statement
+    Private Function ProcessForStatement(tokens As ArrayList, startIndex As Integer) As Integer
+        Dim i As Integer = startIndex + 1
+
+        ' Get loop variable
+        If i >= tokens.Count OrElse CType(tokens(i), Token).Type <> "IDENTIFIER" Then
+            Throw New Exception("Error: Loop variable required!")
+        End If
+        Dim loopVar As String = CType(tokens(i), Token).Value
+        i += 1
+
+        ' Expect '='
+        If i >= tokens.Count OrElse CType(tokens(i), Token).Value <> "=" Then
+            Throw New Exception("Error: '=' required in for loop!")
+        End If
+        i += 1
+
+        ' Get start value
+        Dim startValue As Object = EvaluateExpression(tokens, i)
+        If Not IsNumeric(startValue) Then
+            Throw New Exception("Error: For loop start value must be numeric!")
+        End If
+
+        ' Expect 'to'
+        While i < tokens.Count AndAlso CType(tokens(i), Token).Value.ToLower() <> "to"
+            i += 1
+        End While
+        If i >= tokens.Count Then
+            Throw New Exception("Error: 'to' required in for loop!")
+        End If
+        i += 1
+
+        ' Get end value
+        Dim endValue As Object = EvaluateExpression(tokens, i)
+        If Not IsNumeric(endValue) Then
+            Throw New Exception("Error: For loop end value must be numeric!")
+        End If
+
+        ' Find the body of the loop (from after this line to matching 'next')
+        Dim bodyStart As Integer = SkipToEndOfLine(tokens, i)
+        Dim bodyEnd As Integer = bodyStart
+        Dim nestLevel As Integer = 1
+        While bodyEnd < tokens.Count
+            Dim t As Token = CType(tokens(bodyEnd), Token)
+            If t.Type = "KEYWORD" Then
+                If t.Value.ToLower() = "for" Then
+                    nestLevel += 1
+                ElseIf t.Value.ToLower() = "next" Then
+                    nestLevel -= 1
+                    If nestLevel = 0 Then Exit While
+                End If
+            End If
+            bodyEnd += 1
+        End While
+        If bodyEnd >= tokens.Count Then
+            Throw New Exception("Error: 'next' not found for for loop!")
+        End If
+
+        ' Save old value if variable exists
+        Dim oldVarIndex As Integer = -1
+        Dim oldVarValue As Object = Nothing
+        For j As Integer = 0 To variableNames.Count - 1
+            If variableNames(j).ToString() = loopVar Then
+                oldVarIndex = j
+                oldVarValue = variableValues(j)
+                Exit For
+            End If
+        Next
+
+        ' Loop execution
+        For loopCounter As Integer = CInt(startValue) To CInt(endValue)
+            If oldVarIndex >= 0 Then
+                variableValues(oldVarIndex) = loopCounter
+            Else
+                If loopCounter = CInt(startValue) Then
+                    variableNames.Add(loopVar)
+                    variableValues.Add(loopCounter)
+                    oldVarIndex = variableNames.Count - 1
+                Else
+                    variableValues(oldVarIndex) = loopCounter
+                End If
+            End If
+
+            Dim k As Integer = bodyStart
+            While k < bodyEnd
+                k = ProcessStatement(tokens, k)
+            End While
+        Next
+
+        ' Restore old value if existed, or remove if new
+        If oldVarIndex >= 0 Then
+            variableValues(oldVarIndex) = oldVarValue
+        Else
+            For j As Integer = 0 To variableNames.Count - 1
+                If variableNames(j).ToString() = loopVar Then
+                    variableNames.RemoveAt(j)
+                    variableValues.RemoveAt(j)
+                    Exit For
+                End If
+            Next
+        End If
+
+        Return bodyEnd + 1
+    End Function
+
+
+    Private Sub header_panel_Paint(sender As Object, e As PaintEventArgs)
+
+    End Sub
 
 End Class
