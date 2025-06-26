@@ -20,13 +20,21 @@ Public Class Form1
             fileContents("codeSample_1") = GetEnglishSampleCode()
             main_code_editor.Text = fileContents("codeSample_1")
         End If
+
+        rounded_utils(btn_exit, btn_maximize, btn_minimize, btn_more)
+        rounded_btn(btn_save, btn_editfile, btn_debug, btn_settings, btn_dropdown, btn_run)
+
+
+
+
+
     End Sub
 
     'keywords initialization
     'paki-palitan yung mga keywords natin ng medyo unique
     Private Sub InitializeKeywords()
         keywords.Add("set")     'var assignment
-        keywords.Add("print")   'output
+        keywords.Add("print")   'output ''
         keywords.Add("if")      'conditional statement
         keywords.Add("then")    'if block
         keywords.Add("elseif")  'else-if block
@@ -87,51 +95,29 @@ Public Class Form1
     End Function
 
 
-    'button logic'
-    Private Sub file_button_Click(sender As Object, e As EventArgs) Handles file_button.Click
-        MessageBox.Show("File menu - Manage your files here!", "File Menu")
-    End Sub
 
-    'edit button
-    Private Sub edit_button_Click(sender As Object, e As EventArgs) Handles edit_button.Click
-        MessageBox.Show("Edit menu - Edit your code here!", "Edit Menu")
-    End Sub
+
+
+
 
     'Terminal button - available variables and their values
-    Private Sub terminal_button_Click(sender As Object, e As EventArgs) Handles terminal_button.Click
-        Dim terminalOutput As New System.Text.StringBuilder()
-        terminalOutput.AppendLine("=== TERMINAL ===")
-        terminalOutput.AppendLine("Current Variables:")
-
-        For i As Integer = 0 To variableNames.Count - 1
-            terminalOutput.AppendLine($"var {variableNames(i)} = {variableValues(i)}")
-        Next
-
-        ShowOutputWindow(terminalOutput.ToString(), "Terminal")
-    End Sub
 
     'settings button - shows programming language
-    Private Sub settings_button_Click(sender As Object, e As EventArgs) Handles settings_button.Click
-        Dim settingsInfo As String = "PROGRAMMING LANGUAGE SETTINGS" & vbCrLf & vbCrLf &
-                                   "Keywords (Commands):" & vbCrLf
 
-        For Each keyword As String In keywords
-            settingsInfo += "- " + keyword + vbCrLf
-        Next
-
-        MessageBox.Show(settingsInfo, "Language Settings")
-    End Sub
 
     'run button - compiles and runs the code
-    Private Sub run_button_Click(sender As Object, e As EventArgs) Handles run_button.Click
+    Private Sub run_button_Click(sender As Object, e As EventArgs)
         Try
             output.Clear()
             variableNames.Clear()
             variableValues.Clear()
+            rch_terminal.Clear()
 
-            Dim sourceCode As String = main_code_editor.Text
+
+            Dim sourceCode = main_code_editor.Text
             CompileAndRunCode(sourceCode)
-            ShowOutputWindow(output.ToString(), "Program Output")
+            rch_terminal.Text = "=== OUTPUT ===" & vbCrLf & output.ToString
+
 
         Catch ex As Exception
             MessageBox.Show("Error: " & ex.Message, "Compilation Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -139,12 +125,12 @@ Public Class Form1
     End Sub
 
     'debug button - kung anong kulang and mali sa syntax ng code
-    Private Sub debugg_button_Click(sender As Object, e As EventArgs) Handles debugg_button.Click
+    Private Sub debugg_button_Click(sender As Object, e As EventArgs)
         Try
-            Dim sourceCode As String = main_code_editor.Text
+            Dim sourceCode = main_code_editor.Text
             Dim tokens = TokenizeCode(sourceCode)
 
-            Dim debugInfo As New System.Text.StringBuilder()
+            Dim debugInfo As New Text.StringBuilder
             debugInfo.AppendLine("=== DEBUG INFO ===")
             debugInfo.AppendLine("Tokens found:")
             debugInfo.AppendLine()
@@ -159,7 +145,8 @@ Public Class Form1
                 debugInfo.AppendLine("- " + keyword)
             Next
 
-            ShowOutputWindow(debugInfo.ToString(), "Debug Info")
+            rch_terminal.Text = "=== DEBUG INFO ===" & vbCrLf & debugInfo.ToString
+
 
         Catch ex As Exception
             MessageBox.Show("Debug error: " & ex.Message, "Debug Error")
@@ -834,9 +821,168 @@ Public Class Form1
         Return bodyEnd + 1
     End Function
 
+    Private Sub rounded_utils(ParamArray btnArr1() As Button)
 
-    Private Sub header_panel_Paint(sender As Object, e As PaintEventArgs)
+        For Each btn As Button In btnArr1
+            btn.FlatStyle = FlatStyle.Flat
+            btn.FlatAppearance.BorderSize = 0
+            btn.BackColor = Color.DarkOrange
+            btn.ForeColor = Color.Black
+            btn.FlatAppearance.MouseOverBackColor = Color.Peru
+            btn.FlatAppearance.MouseDownBackColor = Color.Orange
 
+            btn.Cursor = Cursors.Hand
+            btn.Font = New Font("Showcard Gothic", 20, FontStyle.Bold)
+            Dim iconBtn As FontAwesome.Sharp.IconButton = CType(btn, FontAwesome.Sharp.IconButton)
+            iconBtn.IconColor = Color.Black
+
+            AddHandler btn.MouseEnter, Sub(s, e)
+                                           btn.ForeColor = Color.White
+                                           iconBtn.IconColor = Color.White
+                                       End Sub
+            AddHandler btn.MouseLeave, Sub(s, e)
+                                           btn.ForeColor = Color.Black
+                                           iconBtn.IconColor = Color.Black
+                                       End Sub
+            AddHandler btn.MouseDown, Sub(s, e)
+                                          btn.ForeColor = Color.Black
+                                          iconBtn.IconColor = Color.Black
+                                      End Sub
+            AddHandler btn.MouseUp, Sub(s, e)
+                                        btn.ForeColor = Color.Black
+                                        iconBtn.IconColor = Color.Black
+                                    End Sub
+
+        Next
     End Sub
+
+    Private Sub rounded_btn(ParamArray btnArr() As Button)
+        For Each btn As Button In btnArr
+            btn.FlatStyle = FlatStyle.Flat
+            btn.FlatAppearance.BorderSize = 0
+            btn.BackColor = Color.DarkOrange
+            btn.ForeColor = Color.Black
+            btn.FlatAppearance.MouseOverBackColor = Color.Peru
+            btn.FlatAppearance.MouseDownBackColor = Color.Orange
+
+            btn.Cursor = Cursors.Hand
+            btn.Font = New Font("Showcard Gothic", 20, FontStyle.Bold)
+
+            AddHandler btn.MouseEnter, Sub(s, e) btn.ForeColor = Color.White
+            AddHandler btn.MouseLeave, Sub(s, e) btn.ForeColor = Color.Black
+            AddHandler btn.MouseDown, Sub(s, e) btn.ForeColor = Color.Black
+            AddHandler btn.MouseUp, Sub(s, e) btn.ForeColor = Color.Black
+
+            Dim radius As New Drawing2D.GraphicsPath
+            radius.StartFigure()
+
+            ' Top-left
+            radius.AddArc(New Rectangle(0, 0, 20, 20), 180, 90)
+            radius.AddLine(10, 0, btn.Width - 20, 0)
+
+            ' Top-right
+            radius.AddArc(New Rectangle(btn.Width - 20, 0, 20, 20), -90, 90)
+            radius.AddLine(btn.Width, 20, btn.Width, btn.Height - 10)
+
+            ' Bottom-right
+            radius.AddArc(New Rectangle(btn.Width - 25, btn.Height - 25, 25, 25), 0, 90)
+
+            ' Bottom-left
+            radius.AddLine(btn.Width - 10, btn.Width, 20, btn.Height)
+            radius.AddArc(New Rectangle(0, btn.Height - 20, 20, 20), 90, 90)
+
+            radius.CloseFigure()
+            btn.Region = New Region(radius)
+        Next
+    End Sub
+
+
+
+
+    Private Sub btn_exit_Click(sender As Object, e As EventArgs) Handles btn_exit.Click
+        Application.Exit()
+    End Sub
+
+    Private Sub btn_maximize_Click(sender As Object, e As EventArgs) Handles btn_maximize.Click
+        If WindowState = FormWindowState.Maximized Then
+            WindowState = FormWindowState.Normal
+        Else
+            WindowState = FormWindowState.Maximized
+        End If
+    End Sub
+
+    Private Sub btn_minimize_Click(sender As Object, e As EventArgs) Handles btn_minimize.Click
+        Me.WindowState = FormWindowState.Minimized
+    End Sub
+
+    Private Sub IconButton2_Click(sender As Object, e As EventArgs) Handles btn_save.Click
+        MessageBox.Show("File menu - Manage your files here!", "File Menu")
+    End Sub
+
+    Private Sub IconButton3_Click(sender As Object, e As EventArgs) Handles btn_editfile.Click
+        MessageBox.Show("Edit menu - Edit your code here!", "Edit Menu")
+    End Sub
+
+    Private Sub IconButton4_Click(sender As Object, e As EventArgs) Handles btn_settings.Click
+        Dim settingsInfo = "PROGRAMMING LANGUAGE SETTINGS" & vbCrLf & vbCrLf &
+                                   "Keywords (Commands):" & vbCrLf
+
+        For Each keyword As String In keywords
+            settingsInfo += "- " + keyword + vbCrLf
+        Next
+
+        MessageBox.Show(settingsInfo, "Language Settings")
+    End Sub
+
+
+    'run button - compiles and runs the code
+    Private Sub IconButton6_Click(sender As Object, e As EventArgs) Handles btn_run.Click
+        Try
+            output.Clear()
+            variableNames.Clear()
+            variableValues.Clear()
+            rch_terminal.Clear()
+
+
+            Dim sourceCode = main_code_editor.Text
+            CompileAndRunCode(sourceCode)
+            rch_terminal.Text = "=== OUTPUT ===" & vbCrLf & output.ToString
+
+
+        Catch ex As Exception
+            MessageBox.Show("Error: " & ex.Message, "Compilation Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+
+    'debug button - kung anong kulang and mali sa syntax ng code
+    Private Sub IconButton7_Click(sender As Object, e As EventArgs) Handles btn_debug.Click
+        Try
+            Dim sourceCode = main_code_editor.Text
+            Dim tokens = TokenizeCode(sourceCode)
+
+            Dim debugInfo As New Text.StringBuilder
+            debugInfo.AppendLine("=== DEBUG INFO ===")
+            debugInfo.AppendLine("Tokens found:")
+            debugInfo.AppendLine()
+
+            For Each token As Token In tokens
+                debugInfo.AppendLine($"Type: {token.Type} | Value: '{token.Value}' | Line: {token.LineNumber}")
+            Next
+
+            debugInfo.AppendLine()
+            debugInfo.AppendLine("Keywords in storage:")
+            For Each keyword As String In keywords
+                debugInfo.AppendLine("- " + keyword)
+            Next
+
+            rch_terminal.Text = "=== DEBUG INFO ===" & vbCrLf & debugInfo.ToString
+
+
+        Catch ex As Exception
+            MessageBox.Show("Debug error: " & ex.Message, "Debug Error")
+        End Try
+    End Sub
+
 
 End Class
