@@ -69,7 +69,7 @@ Partial Class Form1
         ' terminal_btn
         ' 
         terminal_btn.FlatStyle = FlatStyle.Popup
-        terminal_btn.Font = New Font("Bauhaus 93", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0)
+        terminal_btn.Font = New Font("Bauhaus 93", 9.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         terminal_btn.ForeColor = Color.White
         terminal_btn.Location = New Point(171, 15)
         terminal_btn.Margin = New Padding(3, 4, 3, 4)
@@ -106,7 +106,7 @@ Partial Class Form1
         btn_debug.BackColor = Color.DarkOrange
         btn_debug.FlatAppearance.BorderSize = 0
         btn_debug.FlatStyle = FlatStyle.Flat
-        btn_debug.Font = New Font("Arial Black", 12.0F, FontStyle.Bold, GraphicsUnit.Point, 0)
+        btn_debug.Font = New Font("Arial Black", 12.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         btn_debug.ForeColor = Color.Black
         btn_debug.IconChar = FontAwesome.Sharp.IconChar.None
         btn_debug.IconColor = Color.Black
@@ -125,7 +125,7 @@ Partial Class Form1
         btn_run.BackColor = Color.DarkOrange
         btn_run.FlatAppearance.BorderSize = 0
         btn_run.FlatStyle = FlatStyle.Flat
-        btn_run.Font = New Font("Arial Black", 12.0F, FontStyle.Bold, GraphicsUnit.Point, 0)
+        btn_run.Font = New Font("Arial Black", 12.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         btn_run.ForeColor = Color.Black
         btn_run.IconChar = FontAwesome.Sharp.IconChar.None
         btn_run.IconColor = Color.Black
@@ -144,7 +144,7 @@ Partial Class Form1
         btn_search.BackColor = Color.DarkOrange
         btn_search.FlatAppearance.BorderSize = 0
         btn_search.FlatStyle = FlatStyle.Flat
-        btn_search.Font = New Font("Arial Black", 12.0F, FontStyle.Bold, GraphicsUnit.Point, 0)
+        btn_search.Font = New Font("Arial Black", 12.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         btn_search.ForeColor = Color.Black
         btn_search.IconChar = FontAwesome.Sharp.IconChar.None
         btn_search.IconColor = Color.Black
@@ -163,7 +163,7 @@ Partial Class Form1
         btn_settings.BackColor = Color.DarkOrange
         btn_settings.FlatAppearance.BorderSize = 0
         btn_settings.FlatStyle = FlatStyle.Flat
-        btn_settings.Font = New Font("Arial Black", 12.0F, FontStyle.Bold, GraphicsUnit.Point, 0)
+        btn_settings.Font = New Font("Arial Black", 12.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         btn_settings.ForeColor = Color.Black
         btn_settings.IconChar = FontAwesome.Sharp.IconChar.None
         btn_settings.IconColor = Color.Black
@@ -182,7 +182,7 @@ Partial Class Form1
         btn_editfile.BackColor = Color.DarkOrange
         btn_editfile.FlatAppearance.BorderSize = 0
         btn_editfile.FlatStyle = FlatStyle.Flat
-        btn_editfile.Font = New Font("Arial Black", 12.0F, FontStyle.Bold, GraphicsUnit.Point, 0)
+        btn_editfile.Font = New Font("Arial Black", 12.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         btn_editfile.ForeColor = Color.Black
         btn_editfile.IconChar = FontAwesome.Sharp.IconChar.None
         btn_editfile.IconColor = Color.Black
@@ -201,7 +201,7 @@ Partial Class Form1
         btn_save.BackColor = Color.DarkOrange
         btn_save.FlatAppearance.BorderSize = 0
         btn_save.FlatStyle = FlatStyle.Flat
-        btn_save.Font = New Font("Arial Black", 12.0F, FontStyle.Bold, GraphicsUnit.Point, 0)
+        btn_save.Font = New Font("Arial Black", 12.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         btn_save.ForeColor = Color.Black
         btn_save.IconChar = FontAwesome.Sharp.IconChar.None
         btn_save.IconColor = Color.Black
@@ -220,7 +220,7 @@ Partial Class Form1
         btn_dropdown.BackColor = Color.DarkOrange
         btn_dropdown.FlatAppearance.BorderSize = 0
         btn_dropdown.FlatStyle = FlatStyle.Flat
-        btn_dropdown.Font = New Font("Arial Black", 12.0F, FontStyle.Bold, GraphicsUnit.Point, 0)
+        btn_dropdown.Font = New Font("Arial Black", 12.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         btn_dropdown.ForeColor = Color.Black
         btn_dropdown.IconChar = FontAwesome.Sharp.IconChar.None
         btn_dropdown.IconColor = Color.Black
@@ -238,7 +238,7 @@ Partial Class Form1
         ' 
         Search_bar.BackColor = Color.Black
         Search_bar.BorderStyle = BorderStyle.FixedSingle
-        Search_bar.Font = New Font("Segoe UI Semibold", 12.0F, FontStyle.Bold, GraphicsUnit.Point, 0)
+        Search_bar.Font = New Font("Segoe UI Semibold", 12.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Search_bar.ForeColor = Color.DarkOrange
         Search_bar.Location = New Point(447, 8)
         Search_bar.Margin = New Padding(3, 4, 3, 4)
@@ -249,7 +249,7 @@ Partial Class Form1
         ' help_btn
         ' 
         help_btn.FlatStyle = FlatStyle.Popup
-        help_btn.Font = New Font("Bauhaus 93", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0)
+        help_btn.Font = New Font("Bauhaus 93", 9.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         help_btn.ForeColor = Color.White
         help_btn.Location = New Point(259, 4)
         help_btn.Margin = New Padding(3, 4, 3, 4)
@@ -262,7 +262,7 @@ Partial Class Form1
         ' edit_btn
         ' 
         edit_btn.FlatStyle = FlatStyle.Popup
-        edit_btn.Font = New Font("Bauhaus 93", 15.0F, FontStyle.Bold, GraphicsUnit.Point, 0)
+        edit_btn.Font = New Font("Bauhaus 93", 15.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         edit_btn.ForeColor = Color.White
         edit_btn.Location = New Point(117, 4)
         edit_btn.Margin = New Padding(3, 4, 3, 4)
@@ -275,14 +275,14 @@ Partial Class Form1
         ' hambrgr_btn
         ' 
         hambrgr_btn.FlatStyle = FlatStyle.Popup
-        hambrgr_btn.Font = New Font("Bauhaus 93", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0)
+        hambrgr_btn.Font = New Font("Bauhaus 93", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         hambrgr_btn.ForeColor = Color.White
         hambrgr_btn.Location = New Point(3, 4)
         hambrgr_btn.Margin = New Padding(3, 4, 3, 4)
         hambrgr_btn.Name = "hambrgr_btn"
         hambrgr_btn.Size = New Size(0, 0)
         hambrgr_btn.TabIndex = 4
-        hambrgr_btn.Text = "☰" + vbCrLf
+        hambrgr_btn.Text = "☰" & vbCrLf
         hambrgr_btn.UseVisualStyleBackColor = True
         ' 
         ' pnl_titletop
@@ -303,7 +303,7 @@ Partial Class Form1
         ' 
         ' Panel1
         ' 
-        Panel1.BackColor = Color.FromArgb(95, 103, 108)
+        Panel1.BackColor = Color.FromArgb(CByte(95), CByte(103), CByte(108))
         Panel1.Location = New Point(2, 45)
         Panel1.Margin = New Padding(3, 4, 3, 4)
         Panel1.Name = "Panel1"
@@ -314,7 +314,7 @@ Partial Class Form1
         ' 
         Label1.AutoSize = True
         Label1.Dock = DockStyle.Left
-        Label1.Font = New Font("Segoe UI Black", 18.0F, FontStyle.Bold, GraphicsUnit.Point, 0)
+        Label1.Font = New Font("Segoe UI Black", 18.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label1.ForeColor = Color.Black
         Label1.Location = New Point(0, 0)
         Label1.Name = "Label1"
@@ -327,7 +327,7 @@ Partial Class Form1
         btn_minimize.BackColor = Color.DarkOrange
         btn_minimize.FlatAppearance.BorderSize = 0
         btn_minimize.FlatStyle = FlatStyle.Flat
-        btn_minimize.Font = New Font("Arial Black", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0)
+        btn_minimize.Font = New Font("Arial Black", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         btn_minimize.ForeColor = Color.Black
         btn_minimize.IconChar = FontAwesome.Sharp.IconChar.None
         btn_minimize.IconColor = Color.Black
@@ -393,7 +393,7 @@ Partial Class Form1
         btn_more.BackColor = Color.DarkOrange
         btn_more.FlatAppearance.BorderSize = 0
         btn_more.FlatStyle = FlatStyle.Flat
-        btn_more.Font = New Font("Arial Black", 12.0F, FontStyle.Bold, GraphicsUnit.Point, 0)
+        btn_more.Font = New Font("Arial Black", 12.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         btn_more.ForeColor = Color.Black
         btn_more.IconChar = FontAwesome.Sharp.IconChar.None
         btn_more.IconColor = Color.Black
@@ -422,7 +422,7 @@ Partial Class Form1
         ' 
         codeSample_1.BackColor = Color.SandyBrown
         codeSample_1.FlatStyle = FlatStyle.Popup
-        codeSample_1.Font = New Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0)
+        codeSample_1.Font = New Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         codeSample_1.ForeColor = Color.Black
         codeSample_1.Location = New Point(3, 4)
         codeSample_1.Margin = New Padding(3, 4, 3, 4)
@@ -437,7 +437,7 @@ Partial Class Form1
         ' 
         codeSample_3.BackColor = Color.SandyBrown
         codeSample_3.FlatStyle = FlatStyle.Popup
-        codeSample_3.Font = New Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0)
+        codeSample_3.Font = New Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         codeSample_3.ForeColor = Color.Black
         codeSample_3.Location = New Point(3, 47)
         codeSample_3.Margin = New Padding(3, 4, 3, 4)
@@ -452,7 +452,7 @@ Partial Class Form1
         ' 
         codeSample_2.BackColor = Color.SandyBrown
         codeSample_2.FlatStyle = FlatStyle.Popup
-        codeSample_2.Font = New Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0)
+        codeSample_2.Font = New Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         codeSample_2.ForeColor = Color.Black
         codeSample_2.Location = New Point(3, 90)
         codeSample_2.Margin = New Padding(3, 4, 3, 4)
@@ -467,7 +467,7 @@ Partial Class Form1
         ' 
         fileExplorer_txt.BackColor = Color.DarkOrange
         fileExplorer_txt.BorderStyle = BorderStyle.FixedSingle
-        fileExplorer_txt.Font = New Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0)
+        fileExplorer_txt.Font = New Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         fileExplorer_txt.Location = New Point(6, 3)
         fileExplorer_txt.Margin = New Padding(3, 4, 3, 4)
         fileExplorer_txt.Name = "fileExplorer_txt"
@@ -512,7 +512,7 @@ Partial Class Form1
         ' 
         main_code_editor.BackColor = Color.Black
         main_code_editor.BorderStyle = BorderStyle.None
-        main_code_editor.Font = New Font("Century Schoolbook", 12.0F, FontStyle.Regular, GraphicsUnit.Point, 0)
+        main_code_editor.Font = New Font("Century Schoolbook", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         main_code_editor.ForeColor = Color.DarkOrange
         main_code_editor.Location = New Point(69, 8)
         main_code_editor.Margin = New Padding(3, 4, 3, 4)
@@ -526,7 +526,7 @@ Partial Class Form1
         rch_terminal.BackColor = Color.Black
         rch_terminal.BorderStyle = BorderStyle.None
         rch_terminal.Dock = DockStyle.Bottom
-        rch_terminal.Font = New Font("Segoe UI Semibold", 12.0F, FontStyle.Bold, GraphicsUnit.Point, 0)
+        rch_terminal.Font = New Font("Segoe UI Semibold", 12.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         rch_terminal.ForeColor = Color.DarkOrange
         rch_terminal.Location = New Point(0, 676)
         rch_terminal.Name = "rch_terminal"
@@ -538,7 +538,7 @@ Partial Class Form1
         ' 
         pnl_terminal.BackColor = Color.DarkOrange
         pnl_terminal.Controls.Add(lbl_terminal)
-        pnl_terminal.Font = New Font("Segoe UI", 12.0F, FontStyle.Bold, GraphicsUnit.Point, 0)
+        pnl_terminal.Font = New Font("Segoe UI", 12.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         pnl_terminal.ForeColor = Color.Black
         pnl_terminal.Location = New Point(0, 638)
         pnl_terminal.Margin = New Padding(0)
@@ -549,7 +549,7 @@ Partial Class Form1
         ' lbl_terminal
         ' 
         lbl_terminal.AutoSize = True
-        lbl_terminal.Font = New Font("Segoe UI Black", 18.0F, FontStyle.Bold, GraphicsUnit.Point, 0)
+        lbl_terminal.Font = New Font("Segoe UI Black", 18.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         lbl_terminal.Location = New Point(490, -1)
         lbl_terminal.Name = "lbl_terminal"
         lbl_terminal.Size = New Size(246, 41)
@@ -567,7 +567,7 @@ Partial Class Form1
         ' 
         ' Form1
         ' 
-        AutoScaleDimensions = New SizeF(8.0F, 20.0F)
+        AutoScaleDimensions = New SizeF(8F, 20F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.RosyBrown
         ClientSize = New Size(1183, 849)

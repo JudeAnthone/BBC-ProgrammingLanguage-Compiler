@@ -33,26 +33,26 @@ Public Class Form1
     'keywords initialization
     'paki-palitan yung mga keywords natin ng medyo unique
     Private Sub InitializeKeywords()
-        keywords.Add("set")     'var assignment
-        keywords.Add("print")   'output ''
-        keywords.Add("if")      'conditional statement
-        keywords.Add("then")    'if block
-        keywords.Add("elseif")  'else-if block
-        keywords.Add("else")    'else block
-        keywords.Add("end")     'end block
-        keywords.Add("for")     'for loop
-        keywords.Add("to")      'for loop range
-        keywords.Add("next")    'for loop end
-        keywords.Add("var")     'variable prefix
-        keywords.Add("start")   'program start
-        keywords.Add("comment") 'comment prefix type nyo "comment" instead na // 
-        keywords.Add("true")    'Boolean true
-        keywords.Add("false")   'Boolean false
-        keywords.Add("count")   'for counting
-        keywords.Add("times")   'loop iterations
-        keywords.Add("do")      'actions
-        keywords.Add("check")   'conditions
-        keywords.Add("output")  'alternative print
+        keywords.Add("idikitmo")     'var assignment 'set
+        keywords.Add("ambatukam")   'output ''print
+        keywords.Add("nig")      'conditional statement 'if
+        keywords.Add("ken")    'if block 'then
+        keywords.Add("ger")  'else-if block 'elseif
+        keywords.Add("ga")    'else block 'else
+        keywords.Add("kam")     'end block 'end
+        keywords.Add("iyot")     'for loop 'loop
+        keywords.Add("sa")      'for loop range 'to
+        keywords.Add("labas")    'for loop end 'next
+        keywords.Add("ilagaymo")     'variable prefix 'var
+        keywords.Add("gora")   'program start 'start
+        keywords.Add("cumment") 'comment prefix type nyo "comment" instead na //  'comment
+        keywords.Add("typeshit")    'Boolean true 'true
+        keywords.Add("nah")   'Boolean false 'false
+        keywords.Add("huzz")   'for counting 'count
+        keywords.Add("bruh")   'loop iterations 'times
+        keywords.Add("lockin")      'actions 'do
+        keywords.Add("pajeet")   'conditions 'check
+        keywords.Add("jamal")  'alternative print 'alt print
     End Sub
 
     'operators initialization
@@ -70,28 +70,28 @@ Public Class Form1
 
     'default code pag ni-run'
     Private Function GetEnglishSampleCode() As String
-        Return "comment Welcome to BBC COMPILER!" & vbCrLf &
-               "start programming" & vbCrLf &
+        Return "cumment Welcome to BBC COMPILER!" & vbCrLf &
+               "gora programming" & vbCrLf &
                "" & vbCrLf &
-               "set name = ""Pajeet""" & vbCrLf &
-               "set lastname = "" Raju""" & vbCrLf &
-               "set age = 15" & vbCrLf &
-               "set money = 100" & vbCrLf &
+               "idikitmo name = ""Pajeet""" & vbCrLf &
+               "idikitmo lastname = "" Raju""" & vbCrLf &
+               "idikitmo age = 15" & vbCrLf &
+               "idikitmo money = 100" & vbCrLf &
                "" & vbCrLf &
-               "print ""Hello World!""" & vbCrLf &
-               "print ""My name is: "" + name + lastname" & vbCrLf &
-               "print ""I am "" + age + "" years old""" & vbCrLf &
+               "ambatukam ""Hello World!""" & vbCrLf &
+               "ambatukam ""My name is: "" + name + lastname" & vbCrLf &
+               "ambatukam ""I am "" + age + "" years old""" & vbCrLf &
                "" & vbCrLf &
-               "set total = money + 50" & vbCrLf &
-               "print ""Total money: "" + total" & vbCrLf &
+               "idikitmo total = money + 50" & vbCrLf &
+               "ambatukam ""Total money: "" + total" & vbCrLf &
                "" & vbCrLf &
-               "if age > 18 then" & vbCrLf &
-               "    print ""Bulbulin ka na!""" & vbCrLf &
-               "else" & vbCrLf &
-               "    print ""Bata ka pa""" & vbCrLf &
-               "end" & vbCrLf &
+               "nig age > 18 ken" & vbCrLf &
+               "    ambatukam ""Bulbulin ka na!""" & vbCrLf &
+               "ga" & vbCrLf &
+               "    ambatukam ""Bata ka pa""" & vbCrLf &
+               "kam" & vbCrLf &
                "" & vbCrLf &
-               "print ""HHHHHH!"""
+               "ambatukam ""HHHHHH!"""
     End Function
 
 
@@ -185,7 +185,8 @@ Public Class Form1
         For Each line As String In lines
             Dim trimmedLine As String = line.Trim()
 
-            If String.IsNullOrEmpty(trimmedLine) OrElse trimmedLine.StartsWith("comment") Then
+            ' Change "comment" to "cumment" 
+            If String.IsNullOrEmpty(trimmedLine) OrElse trimmedLine.StartsWith("cumment") Then
                 lineNumber += 1
                 Continue For
             End If
@@ -330,21 +331,21 @@ Public Class Form1
 
         If currentToken.Type = "KEYWORD" Then
             Select Case currentToken.Value.ToLower()
-                Case "set"
+                Case "idikitmo"
                     Return ProcessSetStatement(tokens, i)
-                Case "print"
+                Case "ambatukam"
                     Return ProcessPrintStatement(tokens, i)
-                Case "if"
+                Case "nig"
                     Return ProcessIfStatement(tokens, i)
-                Case "elseif"
+                Case "ger"
                     Return i + 1
-                Case "else"
+                Case "ga"
                     Return i + 1
-                Case "for"
+                Case "iyot"
                     Return ProcessForStatement(tokens, i)
-                Case "next"
+                Case "labas"
                     Return i + 1 ' handled in ProcessForStatement
-                Case "start"
+                Case "gora"
                     Return SkipToEndOfLine(tokens, i)
             End Select
         End If
@@ -363,8 +364,16 @@ Public Class Form1
         Dim varName As String = CType(tokens(i), Token).Value
         i += 1
 
-        If i >= tokens.Count OrElse CType(tokens(i), Token).Value <> "=" Then
+        ' Check for assignment operator - only '=' is allowed for variable assignment
+        If i >= tokens.Count OrElse CType(tokens(i), Token).Type <> "OPERATOR" Then
             Throw New Exception("Error: Assignment operator '=' required!")
+        End If
+
+        Dim operatorToken As String = CType(tokens(i), Token).Value
+
+        ' Check if the operator is anything other than '='
+        If operatorToken <> "=" Then
+            Throw New Exception("Sike! Bobo mo nigga")
         End If
 
         i += 1
@@ -434,12 +443,13 @@ Public Class Form1
             i += 1
         End If
 
-        While i < tokens.Count AndAlso CType(tokens(i), Token).Value.ToLower() <> "then"
+        ' Look for "ken" instead of "then"
+        While i < tokens.Count AndAlso CType(tokens(i), Token).Value.ToLower() <> "ken"
             i += 1
         End While
 
         If i >= tokens.Count Then
-            Throw New Exception("Error: 'then' keyword missing")
+            Throw New Exception("Error: 'ken' keyword missing")
         End If
 
         i += 1
@@ -447,10 +457,10 @@ Public Class Form1
         Dim condition As Boolean = EvaluateCondition(leftValue, comparisonOp, rightValue)
 
         If condition Then
-            ' Execute statements until elseif/else/end
+            ' Execute statements until ger/ga/kam (elseif/else/end)
             While i < tokens.Count
                 Dim token As Token = CType(tokens(i), Token)
-                If token.Type = "KEYWORD" AndAlso (token.Value = "elseif" OrElse token.Value = "else" OrElse token.Value = "end") Then
+                If token.Type = "KEYWORD" AndAlso (token.Value = "ger" OrElse token.Value = "ga" OrElse token.Value = "kam") Then
                     Exit While
                 End If
                 i = ProcessStatement(tokens, i)
@@ -459,28 +469,28 @@ Public Class Form1
             ' Skip the rest of the if-elseif-else chain
             While i < tokens.Count
                 Dim token As Token = CType(tokens(i), Token)
-                If token.Type = "KEYWORD" AndAlso token.Value = "end" Then
+                If token.Type = "KEYWORD" AndAlso token.Value = "kam" Then
                     i += 1
                     Exit While
                 End If
                 i += 1
             End While
         Else
-            ' Check for elseif/else
+            ' Check for ger/ga (elseif/else)
             While i < tokens.Count
                 Dim token As Token = CType(tokens(i), Token)
-                If token.Type = "KEYWORD" AndAlso token.Value = "elseif" Then
+                If token.Type = "KEYWORD" AndAlso token.Value = "ger" Then
                     Return ProcessIfStatement(tokens, i)
-                ElseIf token.Type = "KEYWORD" AndAlso token.Value = "else" Then
+                ElseIf token.Type = "KEYWORD" AndAlso token.Value = "ga" Then
                     i += 1
-                    While i < tokens.Count AndAlso CType(tokens(i), Token).Value <> "end"
+                    While i < tokens.Count AndAlso CType(tokens(i), Token).Value <> "kam"
                         i = ProcessStatement(tokens, i)
                     End While
-                    If i < tokens.Count AndAlso CType(tokens(i), Token).Value = "end" Then
+                    If i < tokens.Count AndAlso CType(tokens(i), Token).Value = "kam" Then
                         i += 1
                     End If
                     Exit While
-                ElseIf token.Type = "KEYWORD" AndAlso token.Value = "end" Then
+                ElseIf token.Type = "KEYWORD" AndAlso token.Value = "kam" Then
                     i += 1
                     Exit While
                 End If
@@ -501,7 +511,8 @@ Public Class Form1
         While index < tokens.Count
             Dim token As Token = CType(tokens(index), Token)
 
-            If token.Type = "EOL" OrElse token.Type = "KEYWORD" OrElse token.Value = "then" Then
+            ' Change "then" to "ken" and add other custom keywords
+            If token.Type = "EOL" OrElse token.Type = "KEYWORD" OrElse token.Value = "ken" OrElse token.Value = "sa" Then
                 Exit While
             End If
 
@@ -679,20 +690,25 @@ Public Class Form1
                 Case "codeSample_1"
                     main_code_editor.Text = GetEnglishSampleCode()
                 Case "codeSample_2"
-                    main_code_editor.Text = "comment Simple Calculator" & vbCrLf &
-                                          "set num1 = 10" & vbCrLf &
-                                          "set num2 = 5" & vbCrLf &
-                                          "print ""Addition: "" + (num1 + num2)"
+                    main_code_editor.Text = "cumment Simple Calculator" & vbCrLf &
+                                      "idikitmo num1 = 10" & vbCrLf &
+                                      "idikitmo num2 = 5" & vbCrLf &
+                                      "idikitmo answer = num1 + num2" & vbCrLf &
+                                      "ambatukam ""Addition: "" + answer"
                 Case "codeSample_3"
-                    main_code_editor.Text = "comment Sample" & vbCrLf &
-                                          "set age = 21" & vbCrLf &
-                                          "if age > 18 then" & vbCrLf &
-                                          "    print ""Tanda ka na!""" & vbCrLf &
-                                          "end"
+                    main_code_editor.Text = "cumment Sample with Loop" & vbCrLf &
+                                      "idikitmo age = 21" & vbCrLf &
+                                      "nig age > 18 ken" & vbCrLf &
+                                      "    ambatukam ""Tanda ka na!""" & vbCrLf &
+                                      "kam" & vbCrLf &
+                                      "" & vbCrLf &
+                                      "iyot i = 1 sa 3" & vbCrLf &
+                                      "    ambatukam ""Count: "" + i" & vbCrLf &
+                                      "labas"
                 Case Else
-                    main_code_editor.Text = "comment Sample" & vbCrLf &
-                                          "set message = ""Hello World!""" & vbCrLf &
-                                          "print message"
+                    main_code_editor.Text = "cumment Sample" & vbCrLf &
+                                      "idikitmo message = ""Hello World!""" & vbCrLf &
+                                      "ambatukam message"
             End Select
             fileContents.Add(fileName, main_code_editor.Text)
         End If
@@ -739,12 +755,12 @@ Public Class Form1
             Throw New Exception("Error: For loop start value must be numeric!")
         End If
 
-        ' Expect 'to'
-        While i < tokens.Count AndAlso CType(tokens(i), Token).Value.ToLower() <> "to"
+        ' Expect 'sa' instead of 'to'
+        While i < tokens.Count AndAlso CType(tokens(i), Token).Value.ToLower() <> "sa"
             i += 1
         End While
         If i >= tokens.Count Then
-            Throw New Exception("Error: 'to' required in for loop!")
+            Throw New Exception("Error: 'sa' required in for loop!")
         End If
         i += 1
 
@@ -754,16 +770,16 @@ Public Class Form1
             Throw New Exception("Error: For loop end value must be numeric!")
         End If
 
-        ' Find the body of the loop (from after this line to matching 'next')
+        ' Find the body of the loop (from after this line to matching 'labas')
         Dim bodyStart As Integer = SkipToEndOfLine(tokens, i)
         Dim bodyEnd As Integer = bodyStart
         Dim nestLevel As Integer = 1
         While bodyEnd < tokens.Count
             Dim t As Token = CType(tokens(bodyEnd), Token)
             If t.Type = "KEYWORD" Then
-                If t.Value.ToLower() = "for" Then
+                If t.Value.ToLower() = "iyot" Then
                     nestLevel += 1
-                ElseIf t.Value.ToLower() = "next" Then
+                ElseIf t.Value.ToLower() = "labas" Then
                     nestLevel -= 1
                     If nestLevel = 0 Then Exit While
                 End If
@@ -771,7 +787,7 @@ Public Class Form1
             bodyEnd += 1
         End While
         If bodyEnd >= tokens.Count Then
-            Throw New Exception("Error: 'next' not found for for loop!")
+            Throw New Exception("Error: 'labas' not found for for loop!")
         End If
 
         ' Save old value if variable exists
@@ -925,10 +941,22 @@ Public Class Form1
 
     Private Sub IconButton4_Click(sender As Object, e As EventArgs) Handles btn_settings.Click
         Dim settingsInfo = "PROGRAMMING LANGUAGE SETTINGS" & vbCrLf & vbCrLf &
-                                   "Keywords (Commands):" & vbCrLf
+                        "Keywords (Commands) with Equivalents:" & vbCrLf & vbCrLf
 
-        For Each keyword As String In keywords
-            settingsInfo += "- " + keyword + vbCrLf
+        ' Array of equivalent standard keywords matching the order in InitializeKeywords
+        Dim equivalentKeywords() As String = {
+          "set", "print", "if", "then", "elseif", "else", "end",
+          "loop", "to", "next", "var", "start", "comment", "true",
+          "false", "count", "times", "do", "check", "alt print"
+      }
+
+        ' Loop through keywords and show both unique and equivalent
+        For i As Integer = 0 To keywords.Count - 1
+            If i < equivalentKeywords.Length Then
+                settingsInfo += $"- {keywords(i)} → {equivalentKeywords(i)}" & vbCrLf
+            Else
+                settingsInfo += $"- {keywords(i)}" & vbCrLf
+            End If
         Next
 
         MessageBox.Show(settingsInfo, "Language Settings")
@@ -942,7 +970,6 @@ Public Class Form1
             variableNames.Clear()
             variableValues.Clear()
             rch_terminal.Clear()
-
 
             Dim sourceCode = main_code_editor.Text
             CompileAndRunCode(sourceCode)
@@ -984,5 +1011,7 @@ Public Class Form1
         End Try
     End Sub
 
+    Private Sub btn_more_Click(sender As Object, e As EventArgs) Handles btn_more.Click
 
+    End Sub
 End Class
