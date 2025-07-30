@@ -1,4 +1,4 @@
-﻿'Test comment 7/30/2025
+﻿'Test comment 7/30/2025 - unbroken version
 Public Class Form1
     'Dictionary for file management
     Private fileContents As New Dictionary(Of String, String)
