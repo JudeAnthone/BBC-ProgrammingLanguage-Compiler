@@ -1,4 +1,5 @@
-﻿'Test comment 7/30/2025 - unbroken version FINAL - 5:58
+﻿'Comment 8/12/2025 - FINAL - 8:12AM
+
 Public Class Form1
     'Dictionary for file management
     Private fileContents As New Dictionary(Of String, String)
@@ -23,11 +24,6 @@ Public Class Form1
 
         rounded_utils(btn_exit, btn_maximize, btn_minimize, btn_more)
         rounded_btn(btn_save, btn_editfile, btn_debug, btn_settings, btn_dropdown, btn_run)
-
-
-
-
-
     End Sub
 
     'keywords initialization
@@ -95,15 +91,9 @@ Public Class Form1
     End Function
 
 
-
-
-
-
-
     'Terminal button - available variables and their values
 
     'settings button - shows programming language
-
 
     'run button - compiles and runs the code
     Private Sub run_button_Click(sender As Object, e As EventArgs)
@@ -123,6 +113,7 @@ Public Class Form1
             MessageBox.Show("Error: " & ex.Message, "Compilation Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
+
 
     'debug button - kung anong kulang and mali sa syntax ng code
     Private Sub debugg_button_Click(sender As Object, e As EventArgs)
@@ -147,11 +138,11 @@ Public Class Form1
 
             rch_terminal.Text = "=== DEBUG INFO ===" & vbCrLf & debugInfo.ToString
 
-
         Catch ex As Exception
             MessageBox.Show("Debug error: " & ex.Message, "Debug Error")
         End Try
     End Sub
+
 
     'token
     Public Class Token
@@ -266,6 +257,7 @@ Public Class Form1
     End Function
 
 
+    'Operators 
     Private Function IsOperatorChar(c As Char) As Boolean
         Dim operatorChars() As Char = {"+"c, "-"c, "*"c, "/"c, "="c, ">"c, "<"c}
 
@@ -317,7 +309,7 @@ Public Class Form1
 
 
     'Skipping empty lines
-    ' chinecheck if yung keyword na detected is token ba o hindi
+    'chinecheck if yung keyword na detected is token ba o hindi
     Private Function ProcessStatement(tokens As ArrayList, startIndex As Integer) As Integer
         Dim i As Integer = startIndex
 
@@ -352,6 +344,7 @@ Public Class Form1
 
         Return i + 1
     End Function
+
 
     'Syntax checker
     Private Function ProcessSetStatement(tokens As ArrayList, startIndex As Integer) As Integer
@@ -576,6 +569,7 @@ Public Class Form1
         Throw New Exception($"Error: Variable '{varName}' not found!")
     End Function
 
+
     'arithmetic shit
     Private Function PerformMathOperation(left As Object, op As String, right As Object) As Object
         Dim leftNum As Double = Convert.ToDouble(left)
@@ -597,6 +591,7 @@ Public Class Form1
                 Return leftNum
         End Select
     End Function
+
 
     'Conditional statement shit
     Private Function EvaluateCondition(left As Object, op As String, right As Object) As Boolean
@@ -679,7 +674,6 @@ Public Class Form1
     End Sub
 
 
-
     Private Sub LoadCode(fileName As String)
         currentFile = fileName
 
@@ -717,7 +711,6 @@ Public Class Form1
     End Sub
 
 
-
     Private Sub UpdateLineNumbers()
         line_number_box.SuspendLayout()
         line_number_box.Text = ""
@@ -729,7 +722,6 @@ Public Class Form1
 
         line_number_box.ResumeLayout()
     End Sub
-
 
 
     'Process for-loop statement
@@ -911,7 +903,6 @@ Public Class Form1
             btn.Region = New Region(radius)
         Next
     End Sub
-
 
 
 
